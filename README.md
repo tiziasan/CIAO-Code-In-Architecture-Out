@@ -33,6 +33,10 @@ When the run completes successfully, CIAO will:
 ## Data Folder 
 As supplemental material the data folder contains:
 
+- Repo folder, containing all the generated markdown documentations
+- A copy of the survey
+- Results of the survey
+
 
 
 
