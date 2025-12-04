@@ -30,6 +30,9 @@ When the run completes successfully, CIAO will:
 - Generate documentation sections in parallel and write the final Markdown document to `documentation.txt` in the CIAO project directory.
 
 
+## Data Folder 
+As supplemental material the data folder contains:
+
 
 
 
