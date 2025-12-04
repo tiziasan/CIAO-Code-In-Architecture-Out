@@ -10,17 +10,17 @@ CIAO is a command‑line tool that flattens a code repository with Repomix and t
 
 ## Installation
 
-1. **Clone the repository**
-2. **Create and activate a virtual environment (optional)**
-3. **Install Python dependencies: pip install argparse asyncio aiofiles tiktoken openai repomix**
+1. Clone the repository
+2. Create and activate a virtual environment (optional)
+3. Install Python dependencies: `pip install argparse asyncio aiofiles tiktoken openai repomix`
 
 
 
 ## Usage
 
-1. **Set your OpenAI API key export OPENAI_API_KEY="Your API Key"**
-2. **Set repomix.config.json file to include explude programming languages**
-3. **Run CIAO on a repository: python main.py <github repo link or local repo>**
+1. Set your OpenAI API key export `OPENAI_API_KEY="Your API Key"`
+2. Set repomix.config.json file to include exclude programming languages
+3. Run CIAO on a repository: `python main.py <github repo link or local repo>`
 
 
 When the run completes successfully, CIAO will:
