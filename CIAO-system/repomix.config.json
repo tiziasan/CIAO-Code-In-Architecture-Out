@@ -1,0 +1,41 @@
+{
+  
+  "input": {
+    "maxFileSize": 52428800
+  },
+  "output": {
+    "filePath": "full_code.txt",
+    "style": "plain",
+    "parsableStyle": false,
+    "fileSummary": false,
+    "directoryStructure": true,
+    "files": true,
+    "removeComments": true,
+    "removeEmptyLines": true,
+    "compress": false,
+    "topFilesLength": 5,
+    "showLineNumbers": false,
+    "copyToClipboard": false,
+    "git": {
+      "sortByChanges": false,
+      "sortByChangesMaxCommits": 100,
+      "includeDiffs": false
+    }
+  },
+  "include": [ "**/*.py", "**/*.html", "**/*.css", "**/*.js", "**/*.ipynb", "**/*.pth"],
+  "ignore": {
+    "useGitignore": true,
+    "useDefaultPatterns": true,
+    "customPatterns": ["*.png", "*.jpg", "*.jpeg", "*.gif", "*.svg", "*.pdf",
+      "*.jar", "*.exe", "*.dll",
+      "node_modules/**/*",
+      "build/**/*", "dist/**/*",
+      "tests/**/*", "**/Test/**/*"  ]
+  },
+  "security": {
+    "enableSecurityCheck": true
+  },
+  "tokenCount": {
+    "encoding": "o200k_base"
+  }
+}

@@ -1,0 +1,368 @@
+{
+  "global_guidelines": {
+  "objective": "Generate formal and complete ISO/IEC/IEEE 42010-compliant, SEI’s Views & Beyond-compliant, C4 model-compliant, arc42-compliant architecture documentation for any type of software system, targeting both technical and non-technical stakeholders. The documentation must reflect the real implementation of the codebase and support validation by the development team.",
+  "formatting": [
+    "Use clear, structured, and formal English.",
+    "Write in complete, well-formed paragraphs—avoid bullet points.",
+    "Structure content using markdown .md sections, subsections, and tables where needed.",
+    "Avoid redundancy across sections; maintain coherence and logical flow.",
+    "Ensure the markdown output compiles without additional packages"
+  ],
+  "commitment": [
+    "Ensure full coverage of the ISO/IEC/IEEE 42010,SEI’s Views,C4 model, arc42 template using insights derived from the actual source code.",
+    "Write each section in a way that can be understood by both technical and non-technical stakeholders.",
+    "Focus on clarity and correctness and completeness.",
+    "Reflect practical decisions, actual dependencies, and architectural choices evident in the implementation.",
+    "Absolutely do not skip any part of the code, is it crucial that when you produce a list of containers, components, entities or other you write the complete list, withoput skipping anything "
+  ],
+  "code_analysis": "Examine every line of source code to understand functionality, components, responsibilities,  dependencies, deployment characteristics and interactions; make sure documentation reflects the real implementation. Use this understanding to generate precise documentation aligned with the ISO/IEC/IEEE 42010, SEI, C4, arc42 structure." 
+},
+
+  
+  "md_safety": [
+    "Do not embed HTML; produce Markdown only.",
+    "Use stable, unique filenames and captions; keep them consistent with section titles.",
+    "Avoid smart quotes and non-ASCII glyphs in diagram labels when possible.",
+    "Ensure diagrams and text are consistent.",
+    "It's crucial that you double check the markdown formatting",
+    "crucial NO JSON in the documentation, just markdown"
+  ],
+
+  "user_profile": {
+    "role": "Meticolous Software Architect",
+    "preferred_language": "English",
+    "output_format": "Markdown",
+    "writing_style": "Clear, professional, concise",
+    "target_audience": "Developers and system integrators",
+    "include": ["diagrams", "tables"],
+    "diagram_format": "PlantUML",
+    "diagram completeness": "PlantUML must be complete"
+  },
+
+  "doc_template": {
+    "1": {
+      "title": "System Overview",
+      "sei_viewtype": "All",
+      "c4_level": null,
+      "goal": "Explain the system’s purpose, scope, and key features strictly grounded in the repository. Identify: i) the overall system purpose and main functionalities, ii) the high-level scope (full system or subsystem), and the key features observable from the codebase, no PlantUML diagram here",
+      "description": {
+        "header": "## 1. System Overview",
+        "subsections": [
+          {"name": "Purpose", "type": "paragraph"},
+          {"name": "Scope", "type": "paragraph"},
+          {"name": "Key Features", "type": "bulleted_list"}
+        ]
+      }
+    },
+    "2": {
+      "title": "Architectural Context",
+      "sei_viewtype": "Component-and-Connector",
+      "c4_level": "C1",
+      "goal": "Explain external systems, users/actors, and interfaces visible in code/config.Identify external systems, APIs, frameworks, or data sources the system interacts with. List the main actors or users if explicitly represented in code or configuration, no PlantUML diagram here.",
+
+      "format": {
+        "header": "## 2. Architectural Context",
+        "subsections": [
+          {"name": "External Systems", "type": "bulleted_list"},
+          {"name": "APIs / Interfaces", "type": "bulleted_list"},
+          {"name": "Data Sources", "type": "bulleted_list"},
+          {"name": "Users / Actors", "type": "bulleted_list"}
+        ]
+      }
+    },
+  "2.1": {
+    
+    "title": "Architectural Context – Use Case Diagram",
+    "goal" : "Complete and accurate PlantUML Use Case diagram, no allucination",
+    "description": "Use case diagram for the system context, grounded only on repository evidence.",
+    "standards_alignment": {
+      "iso_42010": ["views", "stakeholder concerns"],
+      "sei_views_and_beyond": ["Component-and-Connector"],
+      "c4_model": ["C1 Context"]
+    },
+    "diagram": {
+      "name": "Use Case Diagram",
+      "id": "context_use_case",
+      "uml_type": "use_case",
+      "format": "plantuml",
+      "grounding_policy": {
+        "require_evidence": true
+      },
+      "mapping_rules": [
+        "Actors: include only if represented in code/config/docs (e.g., auth providers, CLI users, external services).",
+        "Use cases: derive from concrete endpoints, commands, or features explicitly present in the repository.",
+        "External systems modeled as actors with stereotype <<external>>.",
+        "Do not invent actors, use cases, or relations not present in the repository."
+      ],
+      "plantuml_template": "@startuml\nleft to right direction\ntitle {{title}}\n\n' Actors (only those evidenced)\n{{actors_block}}\n\n' System boundary\nrectangle \"{{system_name}}\" as SYS {\n  ' Use cases evidenced by code\n  {{usecases_block}}\n}\n\n' Relations: actors -> use cases\n{{relationships_block}}\n\n@enduml",
+      "placeholders_spec": {
+        "title": "Short diagram title (e.g., 'Architectural Context — Use Case').",
+        "system_name": "Repository/system name if available; else use fallback phrase.",
+        "actors_block": "One line per actor, e.g., 'actor \"User\" as ACT_User' or 'actor \"Payment Gateway\" as ACT_Pay <<external>>'.",
+        "usecases_block": "One line per use case inside SYS, e.g., 'usecase \"Authenticate\" as UC_Authenticate'.",
+        "relationships_block": "One line per relationship, e.g., 'ACT_User --> UC_Authenticate'."
+      },
+      "validation": {
+        "min_actors": 1,
+        "min_usecases": 1
+      }
+    }
+  },
+
+    "3": {
+      "title": "Containers",
+      "sei_viewtype": "Component-and-Connector",
+      "c4_level": "C2",
+      "goal": "identify and describe the main runtime containers (applications, databases, services). For each container, specify: i) responsibility, ii) main technologies or frameworks, iii) and communication mechanisms (HTTP, gRPC, SQL, etc.), no PlantUML diagram here.",
+      "format": {
+        "header": "## 3. Containers",
+        "table": {
+          "columns": [
+            {"name": "Container", "type": "string"},
+            {"name": "Responsibility", "type": "string"},
+            {"name": "Technology", "type": "string"},
+            {"name": "Communication", "type": "string"}
+          ]
+        }
+      }
+    },
+  "3.1": {
+    "title": "Architecture Overview – Component Diagram",
+    "goal" : "Complete and accurate PlantUML Component diagram, no allucination",
+    "description": "High-level UML Component diagram of the overall architecture (containers and externals), grounded only on repository evidence.",
+    "standards_alignment": {
+      "iso_42010": ["views", "stakeholder concerns"],
+      "sei_views_and_beyond": ["Component-and-Connector"],
+      "c4_model": ["C2 Containers"]
+    },
+    "diagram": {
+      "name": "Component Diagram – Architecture Overview",
+      "id": "architecture_overview_component",
+      "uml_type": "component",
+      "format": "plantuml",
+      "grounding_policy": {
+        "require_evidence": true
+      },
+      "mapping_rules": [
+        "Identify containers from clear evidence (services/apps, databases, brokers) in code or infra files.",
+        "Model each container as a UML component with a stereotype (e.g., <<container>>, <<database>>, <<queue>>, <<frontend>>, <<backend>>).",
+        "External systems must be outside the system package and use stereotype <<external>>.",
+        "Represent provided/required interfaces only when explicit in code/config (e.g., HTTP REST API, gRPC service, message topic).",
+        "Label connectors with concrete protocols or channels (HTTP, gRPC, SQL, AMQP) only if evidenced.",
+        "Do not invent nodes, interfaces, or relationships that are not present in the repository."
+      ],
+      "plantuml_template": "@startuml\nleft to right direction\ntitle {{title}}\n\nskinparam componentStyle rectangle\n\n' External systems (only those evidenced)\n{{externals_block}}\n\n' System boundary containing runtime containers\npackage \"{{system_name}}\" as SYS {\n  ' Containers as UML components with stereotypes\n  {{containers_block}}\n}\n\n' Optional provided/required interfaces (only if evidenced)\n{{interfaces_block}}\n\n' Relationships between containers and externals (protocols only if evidenced)\n{{relations_block}}\n\n@enduml",
+      "placeholders_spec": {
+        "title": "Short diagram title (e.g., 'Architecture Overview — UML Component (C4 C2)').",
+        "system_name": "Repository/system name if available; else use fallback phrase.",
+        "externals_block": "One line per external system, e.g., 'component \"Payment Gateway\" as EXT_Pay <<external>>'.",
+        "containers_block": "One line per container, e.g., 'component \"API Server\" as C_API <<container>>' or 'database \"Orders DB\" as C_DB <<database>>'.",
+        "interfaces_block": "Optional lines defining interfaces, e.g., 'interface \"REST API\" as IF_API' and bindings 'C_API - IF_API'.",
+        "relations_block": "One line per relation, e.g., 'C_Web --> IF_API : HTTP' or 'C_API --> C_DB : SQL'."
+      },
+      "validation": {
+        "min_components": 2
+      }
+      
+    }
+  },
+
+    "4": {
+      "title": "Components",
+      "sei_viewtype": "Module",
+      "c4_level": "C3",
+      "goal": "Generate the “Components” section by identifying key internal modules, packages, or classes inside each container. For each component, describe its responsibility and collaboration with others (function calls, imports, dependencies), no PlantUML diagram here",
+      "format": {
+        "header": "## 4. Components",
+        "items": {
+          "table": {
+            "Component": "string",
+            "Responsibility": "string",
+            "Interactions": "string[]"
+          }
+        }
+      }
+    },
+    "5": {
+      "title": "Code-Level View",
+      "sei_viewtype": "Module",
+      "c4_level": "C4",
+      "goal": "Generate the “Code-Level View” describing the mapping between architectural components and source code elements. Identify: i) main entry points, ii) key modules and directories, iii) architectural or design patterns (e.g., MVC, layered) only if explicitly recognizable from code structure, no PlantUML diagram here.",
+
+      "table": {
+        "header": "## 5. Code-Level View",
+        "subsections": [
+          {"name": "Entry points", "type": "bulleted_list"},
+          {"name": "Key modules", "type": "bulleted_list"},
+          {"name": "Recognized patterns", "type": "bulleted_list"}
+        ]
+      }
+    },
+  "5.1": {
+    "title": "Class Diagram",
+    "goal" : "Complete and accurate PlantUML Use Class diagram, no allucination",
+    "description": "UML Class diagram focused on precise relationships, inheritance hierarchies, aggregation/composition, and multiplicities; grounded strictly on repository evidence.",
+    "standards_alignment": {
+      "iso_42010": ["views", "consistency across views"],
+      "sei_views_and_beyond": ["Module"],
+      "c4_model": ["C4 Code"]
+    },
+    "diagram": {
+      "name": "Class Diagram",
+      "id": "code_level_class_diagram",
+      "uml_type": "class",
+      "format": "plantuml",
+      "grounding_policy": {
+        "require_evidence": true,
+        "forbidden_inferences": [
+          "assumed multiplicities without explicit or strongly implied evidence",
+          "invented superclasses/interfaces",
+          "behavioral claims not supported by code",
+          "bidirectional associations unless both directions are evidenced"
+        ]
+      },
+      "mapping_rules": [
+        "Classes and Interfaces: include only types found in the codebase.",
+        "Inheritance: use solid line with a hollow triangle to the superclass; include only if extends/implements is explicit in code.",
+        "Aggregation vs Composition: use diamond notation; choose composition only when strict ownership/lifecycle is evident (e.g., constructed and destroyed together). Otherwise default to plain association.",
+        "Associations: show directionality only if method parameters/return types/fields imply a clear navigability; otherwise use undirected association.",
+        "Multiplicities: annotate with [0..1], [1], [0..*], [1..*] only when clearly evidenced (e.g., collections, optional types, non-null constraints). If uncertain, omit multiplicity rather than guessing.",
+        "Packages/Namespaces: optionally group in UML packages that mirror the repository directories or namespaces.",
+        "Avoid attributes/operations dumps: include only architecturally relevant members (constructors, key methods, interface signatures) when they clarify relationships.",
+        "Do not invent relationships not present in imports/fields/parameters/returns.",
+        "If two classes reference each other, model bidirectional association only if both references are explicit in code (two-way fields or calls)."
+      ],
+      "plantuml_template": "@startuml\nskinparam classAttributeIconSize 0\nset namespaceSeparator ::\ntitle {{title}}\n\n' Optional package grouping based on folders/namespaces\n{{packages_block}}\n\n' Classes and interfaces (only evidenced types)\n{{types_block}}\n\n' Inheritance (extends/implements)\n{{inheritance_block}}\n\n' Associations with multiplicities and roles (only when evidenced)\n{{associations_block}}\n\n' Aggregation/Composition (use diamond; composition only with clear lifecycle ownership)\n{{aggregation_block}}\n\n@enduml",
+      "placeholders_spec": {
+        "title": "Short diagram title (e.g., 'Code-Level Class Diagram — Relations & Multiplicities').",
+        "packages_block": "Optional UML packages reflecting repo structure. One block per package: 'package \"domain\" { ... }'.",
+        "types_block": "One line per type: 'class Order', 'interface Repository', 'abstract class BaseService'. Include stereotypes when useful (e.g., <<entity>>, <<dto>>, <<controller>>).",
+        "inheritance_block": "One line per inheritance: 'Child --|> Parent', 'Service ..|> Interface'.",
+        "associations_block": "One line per association with roles/multiplicities when evidenced, e.g., 'Customer \"1\" -- \"0..*\" Order : places' or 'Controller --> Service : calls'.",
+        "aggregation_block": "One line per aggregation/composition, e.g., 'Order *-- \"1..*\" LineItem' for composition; 'Team o-- \"0..*\" Member' for shared aggregation."
+      },
+      "validation": {
+        "consistency_checks": [
+          "Each inheritance edge references declared types",
+          "Each association endpoint references declared types",
+          "Multiplicity tokens must be one of [0..1, 1, 0..*, 1..*]",
+          "No composition unless there is a constructor or lifecycle pattern evidencing ownership"
+        ]
+      },
+      "relation_derivation_guidelines": {
+        "inheritance": [
+          "Use extends/implements declarations only."
+        ],
+        "field_based_associations": [
+          "Class A has field of type B -> A -- B",
+          "Collection field (e.g., List<B>) -> multiplicity at B end is '0..*' or '1..*' only if non-null/required is evidenced"
+        ],
+        "parameter_return_based": [
+          "Frequent parameter/return references may indicate navigability A --> B (use cautiously; require repeated or central usage)."
+        ],
+        "aggregation_vs_composition": [
+          "Composition (*--) only if B is created exclusively inside A and has no external owner",
+          "Aggregation (o--) if B is passed-in/owned elsewhere; if unclear, use plain association (--)."
+        ]
+      }
+      
+    }
+  },
+
+    "6": {
+      "title": "Cross-Cutting Concerns",
+      "sei_viewtype": "Supplementary/Quality",
+      "c4_level": null,
+      "goal": "Identify cross-cutting aspects observable in code  Identify: security (authentication, authorization, encryption), logging, configuration management, error handling, testing, and monitoring, no PlantUML diagram here.",
+      "format": {
+        "header": "## 6. Cross-Cutting Concerns",
+        "table": {
+          "columns": [
+            {"name": "Concern", "type": "string"},
+            {"name": "Evidence from code", "type": "string"},
+            {"name": "Description", "type": "string"}
+          ]
+        }
+      }
+    },
+    "7": {
+      "title": "Quality Attributes and Rationale",
+      "sei_viewtype": "Rationale",
+      "c4_level": null,
+      "goal": "State quality goals and design rationale only when supported by comments, structure, or explicit docs. Analyze the code for explicit indicators of design choices that support quality attributes (performance, scalability, maintainability, testability, security). Explain the rationale from comments, patterns, or structure, no PlantUML diagram here.",
+      "format": {
+        "header": "## 7. Quality Attributes and Rationale",
+        "items": {
+          "table": {
+            "Quality Attribute": "string",
+            "Evidence": "string",
+            "Rationale": "string"
+          }
+        }
+      }
+    },
+    "8": {
+      "title": "Deployment View",
+      "sei_viewtype": "Allocation",
+      "c4_level": null,
+      "goal": "Explain allocation of software elements to infrastructure based on deployment artifacts present in the repo. Describe how software elements are allocated to physical or virtual nodes, no PlantUML diagram here.",
+      "format": {
+        "header": "## 8. Deployment View",
+        "subsections": [
+          {"name": "Deployment artifacts", "type": "bulleted_list"},
+          {"name": "Execution environment", "type": "bulleted_list"},
+          {"name": "Dependencies between nodes", "type": "bulleted_list"}
+        ]
+      }
+    },
+  "8.1": {
+    "title": "Deployment Diagram",
+    "goal" : "Complete and accurate PlantUML Use Deployment diagram, no allucination",
+    "description": "UML Deployment diagram allocating software elements to infrastructure nodes based strictly on repository evidence.",
+    "standards_alignment": {
+      "iso_42010": ["views", "allocation", "consistency across views"],
+      "sei_views_and_beyond": ["Allocation"],
+      "c4_model": ["Deployment perspective"]
+    },
+    "diagram": {
+      "name": "Deployment Diagram",
+      "id": "deployment_view_deployment_diagram",
+      "uml_type": "deployment",
+      "format": "plantuml",
+      "grounding_policy": {
+        "forbidden_inferences": [
+          "cloud providers or regions not stated",
+          "autoscaling or replicas without manifests",
+          "runtime SLAs/SLOs",
+          "network topologies beyond what's declared"
+        ]
+      },
+      "mapping_rules": [
+        "Nodes: map from K8s nodes/pods, Docker containers, VMs, or hosts evident in IaC/manifests.",
+        "Artifacts: map from build outputs or images (e.g., JARs, Docker images) when explicitly referenced.",
+        "Execution environment: model OS/runtime/middleware only if specified (e.g., JRE version, Nginx).",
+        "Communication paths: show connections/ports only when declared (service, ingress, compose links).",
+        "Clusters/Groups: use UML node nesting or packages to represent clusters/namespaces when evidenced.",
+        "Do not invent nodes, providers, or network segments beyond repository evidence."
+      ],
+      "plantuml_template": "@startuml\nleft to right direction\ntitle {{title}}\n\nskinparam componentStyle rectangle\n\n' Optional grouping for cloud/cluster/namespace (evidenced only)\n{{groups_block}}\n\n' Infrastructure nodes (hosts, VMs, K8s nodes/pods, Docker containers)\n{{nodes_block}}\n\n' Deployed artifacts (images, binaries) bound to nodes\n{{artifacts_block}}\n\n' Communication paths/ports (only when declared)\n{{connections_block}}\n\n@enduml",
+      "placeholders_spec": {
+        "title": "Short diagram title (e.g., 'Deployment — UML Deployment Diagram').",
+        "groups_block": "Optional: group nodes with packages or frames (e.g., 'node \"K8s Cluster\" as CLUS { ... }') only if cluster/namespace is in manifests.",
+        "nodes_block": "One line per node: 'node \"api-pod\" as N_API', 'node \"db\" as N_DB <<database>>', 'node \"nginx\" as N_NGX'.",
+        "artifacts_block": "One line per artifact and deployment binding: 'artifact \"api:1.2.3\" as A_API', 'A_API -down-> N_API : deployed'.",
+        "connections_block": "One line per connection with port/protocol when available: 'N_Web --> N_API : 443/TCP', 'N_API --> N_DB : 5432/TCP'."
+      },
+      "validation": {
+        "min_nodes": 2,
+        "consistency_checks": [
+          "Each artifact is deployed to an existing node",
+          "Each connection references existing nodes",
+          "No ports or protocols unless declared in manifests/config"
+        ]
+      }
+    }
+  }
+}
+
+}
