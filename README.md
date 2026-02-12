@@ -18,9 +18,9 @@ CIAO is a command‑line tool that flattens a code repository with Repomix and t
 
 ## Usage
 
-1. Set your OpenAI API key export `OPENAI_API_KEY="Your API Key"`
+1. Set your OpenAI API key, in the terminal: `export `OPENAI_API_KEY="Your API Key"`
 2. Set repomix.config.json file to include exclude programming languages
-3. Run CIAO on a repository: `python main.py <github repo link or local repo>`
+3. Run CIAO on a repository, in the terminal: `python main.py <github repo link or local repo>`
 
 
 When the run completes successfully, CIAO will:
