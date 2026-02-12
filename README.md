@@ -11,7 +11,7 @@ CIAO is a command‑line tool that flattens a code repository with Repomix and t
 ## Installation
 
 1. Clone the repository
-2. Create and activate a virtual environment (optional)
+2. Open terminal inside the repository folder
 3. Install Python dependencies: `pip install argparse asyncio aiofiles tiktoken openai repomix`
 
 
