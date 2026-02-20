@@ -13,7 +13,7 @@ Applies to all source code files
 
 MIT License
 
-Copyright (c) 2026 [Tiziano Santilli / SDU]
+Copyright (c) 2026 [Tiziano Santilli / SDU, Marco De Luca, Domenico Amalfitano, UNINA]
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -41,7 +41,7 @@ SOFTWARE.
 Applies to all non-code content including datasets, documentation, figures,
 tables, and configuration files.
 
-Copyright (c) 2026 [Tiziano Santilli / SDU]
+Copyright (c) 2026 [Tiziano Santilli / SDU, Marco De Luca, Domenico Amalfitano, UNINA]
 
 This work is licensed under the Creative Commons Attribution 4.0 International
 License. You are free to:
